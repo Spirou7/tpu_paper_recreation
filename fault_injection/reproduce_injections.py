@@ -210,10 +210,13 @@ def main():
     train_recorder = open("replay_{}.txt".format(args.file[args.file.rfind('/')+1:args.file.rfind('.')]), 'w')
     record(train_recorder, "Inject to epoch: {}\n".format(target_epoch))
     record(train_recorder, "Inject to step: {}\n".format(target_step))
-
+    
+    # removing this for now to see if i can still get the code to run
+    '''
     ckpt_path = os.path.join(config.golden_model_dir, "epoch_{}".format(target_epoch - 1))
     record(train_recorder, "Load weights from {}\n".format(ckpt_path))
     model.load_weights(ckpt_path)
+    '''
 
 
     start_epoch = target_epoch

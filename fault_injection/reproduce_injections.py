@@ -60,7 +60,7 @@ def main():
 
     # TPU settings
     tpu_name = os.getenv('TPU_NAME')
-    print(f"Attempting to connect to TPU: {tpu_name}")
+    print("Attempting to connect to TPU:", tpu_name)
     if tpu_name:
       resolver = TPUClusterResolver(tpu=tpu_name)
     else:

@@ -1,5 +1,4 @@
 import tensorflow as tf
-from tensorflow.distribute.cluster_resolver import TPUClusterResolver
 from local_tpu_resolver import LocalTPUClusterResolver
 
 from models.resnet import resnet_18
@@ -61,10 +60,7 @@ def main():
     # TPU settings
     tpu_name = os.getenv('TPU_NAME')
     print("Attempting to connect to TPU:", tpu_name)
-    if tpu_name:
-      resolver = TPUClusterResolver(tpu=tpu_name)
-    else:
-      resolver = LocalTPUClusterResolver()
+    resolver = LocalTPUClusterResolver()
     tf.tpu.experimental.initialize_tpu_system(resolver)
 
     strategy = tf.distribute.TPUStrategy(resolver)

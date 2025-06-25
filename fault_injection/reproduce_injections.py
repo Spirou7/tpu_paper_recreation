@@ -16,9 +16,6 @@ from injection import read_injection
 tf.config.set_soft_device_placement(True)
 tf.random.set_seed(123)
 
-# Hide CPU and GPU devices to force TPU usage
-tf.config.set_visible_devices([], 'CPU')
-tf.config.set_visible_devices([], 'GPU')
 
 golden_grad_idx = {
     'resnet18': -2,

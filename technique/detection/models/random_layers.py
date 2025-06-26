@@ -449,10 +449,10 @@ class MyDropout(tf.keras.layers.Layer):
         random_tensor = stateless_random_ops.stateless_random_uniform(
                         x.shape, seed=seed, dtype=x.dtype)
         '''
-        random_shape = x.shape
-        random_tensor = tf.random.stateless_uniform(array_ops.shape(x), seed=seed, dtype=x.dtype)
-        #tf.random.set_seed(self.seed)
-        #random_tensor = tf.random.uniform(array_ops.shape(x), seed=self.seed, dtype=x.dtype)
+        #random_shape = x.shape
+        # random_tensor = tf.random.stateless_uniform(array_ops.shape(x), seed=seed, dtype=x.dtype)
+        tf.random.set_seed(self.seed)
+        random_tensor = tf.random.uniform(array_ops.shape(x), seed=self.seed, dtype=x.dtype)
         keep_mask = tf.cast(random_tensor >= self.rate, dtype=x.dtype)
         return x_scale * keep_mask
 

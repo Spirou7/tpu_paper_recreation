@@ -84,7 +84,7 @@ def generate_datasets(seed):
     valid_dataset, valid_count = get_dataset(x_test, y_test)
     #test_dataset, test_count = get_dataset(dataset_root_dir=config.test_dir)
 
-    train_dataset = train_dataset.map(lambda x, y: (data_augmentation(x, training=True), y),
+    train_dataset = train_dataset.map(lambda x, y: (data_augmentation(tf.expand_dims(x, axis=0), training=True)[0], y),
                                       num_parallel_calls=tf.data.AUTOTUNE)
 
     # read the original_dataset in the form of batch

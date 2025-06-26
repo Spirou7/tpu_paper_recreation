@@ -223,7 +223,9 @@ def main():
     total_epochs = config.EPOCHS
     early_terminate = False
     epoch = start_epoch
+    print("Starting training...")
     while epoch < total_epochs:
+        print("Starting epoch: ", epoch)
         if early_terminate:
             break
         train_loss.reset_states()
@@ -237,6 +239,7 @@ def main():
 
         train_iterator = iter(train_dataset)
         for step in range(steps_per_epoch):
+            print("Step: ", step)
             train_loss.reset_states()
             train_accuracy.reset_states()
             if early_terminate:

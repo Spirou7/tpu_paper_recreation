@@ -290,6 +290,7 @@ def main():
                 early_terminate = True
 
         epoch += 1
+    print("Training complete!")
 
 
 if __name__ == '__main__':

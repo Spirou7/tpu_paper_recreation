@@ -437,8 +437,8 @@ class MyDropout(tf.keras.layers.Layer):
         self.seed = seed
 
     def call(self, x, training):
-        #seed = [self.seed, self.seed+1]
-        seed = self.seed + tf.cast(1000 * tf.reshape(x, [-1])[:2], tf.int32)
+        seed = [self.seed, self.seed+1]
+        # seed = self.seed + tf.cast(1000 * tf.reshape(x, [-1])[:2], tf.int32)
         if (not training) or self.rate == 0:
             return x
         keep_prob = 1 - self.rate

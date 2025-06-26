@@ -8,17 +8,6 @@ class ResNetTypeI(tf.keras.Model):
     def __init__(self, layer_params, seed, drop_out_rate):
         super(ResNetTypeI, self).__init__()
 
-        self.data_augmentation = tf.keras.Sequential([
-          #tf.keras.layers.RandomFlip("horizontal_and_vertical", seed=seed, force_generator=True),
-          MyRandomFlip("horizontal_and_vertical", seed=seed),
-          #tf.keras.layers.experimental.preprocessing.RandomFlip("horizontal_and_vertical"),
-          tf.keras.layers.ZeroPadding2D(padding=(6,6)),
-          MyRandomCrop(32,32,seed=seed),
-          #tf.keras.layers.experimental.preprocessing.RandomCrop(32,32),
-          #tf.keras.layers.experimental.preprocessing.RandomRotation(factor=0.3),
-          #tf.keras.layers.experimental.preprocessing.RandomContrast(0.2)
-          ])
-
         self.conv1 = InjectConv2D(filters=64,
                                             kernel_size=(7, 7),
                                             strides=2,
@@ -65,9 +54,6 @@ class ResNetTypeI(tf.keras.Model):
         layer_inputs = {}
         layer_kernels = {}
         layer_outputs = {}
-
-        if training:
-            inputs = self.data_augmentation(inputs)
 
         outputs['in'] = inputs
 

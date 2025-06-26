@@ -5,6 +5,13 @@ from config import *
 from tensorflow.keras.datasets import cifar10
 from tensorflow.keras.utils import to_categorical
 import numpy as np
+from models.random_layers import *
+
+data_augmentation = tf.keras.Sequential([
+    MyRandomFlip("horizontal_and_vertical"),
+    tf.keras.layers.ZeroPadding2D(padding=(6, 6)),
+    MyRandomCrop(32, 32),
+])
 
 def load_and_preprocess_image(img_path):
     # read pictures
@@ -76,6 +83,9 @@ def generate_datasets(seed):
     train_dataset, train_count = get_dataset(x_train, y_train)
     valid_dataset, valid_count = get_dataset(x_test, y_test)
     #test_dataset, test_count = get_dataset(dataset_root_dir=config.test_dir)
+
+    train_dataset = train_dataset.map(lambda x, y: (data_augmentation(x, training=True), y),
+                                      num_parallel_calls=tf.data.AUTOTUNE)
 
     # read the original_dataset in the form of batch
     train_dataset = train_dataset.shuffle(buffer_size=train_count, seed=seed)

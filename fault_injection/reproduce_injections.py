@@ -66,7 +66,7 @@ def main():
 
 
     rp = read_injection(args.file)
-    #rp.seed = 123
+    rp.seed = 123
 
     # get the dataset
     train_dataset, valid_dataset, train_count, valid_count = generate_datasets(rp.seed)

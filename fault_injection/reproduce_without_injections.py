@@ -1,3 +1,5 @@
+# this is a custom file written by Michael Dalva to reproduce the training without injections
+
 import tensorflow as tf
 from local_tpu_resolver import LocalTPUClusterResolver
 
@@ -245,23 +247,9 @@ def main():
             train_accuracy.reset_states()
             if early_terminate:
                 break
-            if epoch != target_epoch or step != target_step:
-                losses = train_step(train_iterator)
-            else:
-                iter_inputs = next(train_iterator)
-                inj_layer = rp.target_layer
 
-                if 'fwrd' in rp.stage:
-                    l_inputs, l_kernels, l_outputs = fwrd_inj_train_step1(iter_inputs, inj_layer)
-                else:
-                    l_inputs, l_kernels, l_outputs = bkwd_inj_train_step1(iter_inputs, inj_layer)
-
-                inj_args, inj_flag = get_replay_args(InjType[rp.fmodel], rp, strategy, inj_layer, l_inputs, l_kernels, l_outputs, train_recorder)
-
-                if 'fwrd' in rp.stage:
-                    losses = fwrd_inj_train_step2(iter_inputs, inj_args, inj_flag)
-                else:
-                    losses = bkwd_inj_train_step2(iter_inputs, inj_args, inj_flag)
+            # always perform the correct training step
+            losses = train_step(train_iterator)
 
             record(train_recorder, "Epoch: {}/{}, step: {}/{}, loss: {:.5f}, accuracy: {:.5f}\n".format(epoch,
                              total_epochs,

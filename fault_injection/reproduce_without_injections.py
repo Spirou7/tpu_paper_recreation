@@ -209,7 +209,7 @@ def main():
     target_epoch = rp.target_epoch
     target_step = rp.target_step
 
-    train_recorder = open("replay_{}.txt".format(args.file[args.file.rfind('/')+1:args.file.rfind('.')]), 'w')
+    train_recorder = open("without_injections_replay_{}.txt".format(args.file[args.file.rfind('/')+1:args.file.rfind('.')]), 'w')
     record(train_recorder, "Inject to epoch: {}\n".format(target_epoch))
     record(train_recorder, "Inject to step: {}\n".format(target_step))
     
